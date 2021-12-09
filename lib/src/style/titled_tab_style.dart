@@ -59,6 +59,8 @@ class TitledTabStyle extends InnerBuilder {
         child: Semantics(
           label: item.semanticLabel,
           excludeSemantics: item.semanticLabel != '',
+          container: true,
+          button: true,
           child: Container(
             // necessary otherwise the badge will not large enough
             width: style.layoutSize,
@@ -81,6 +83,8 @@ class TitledTabStyle extends InnerBuilder {
       return Semantics(
         label: item.semanticLabel,
         excludeSemantics: item.semanticLabel != '',
+        container: true,
+        button: true,
         child: Stack(
           clipBehavior: Clip.hardEdge,
           alignment: Alignment.center,
@@ -109,6 +113,8 @@ class TitledTabStyle extends InnerBuilder {
     return Semantics(
         label: item.semanticLabel,
         excludeSemantics: item.semanticLabel != '',
+        container: true,
+        button: true,
         child: Center(child: Text(item.title ?? '', style: textStyle)));
   }
 }

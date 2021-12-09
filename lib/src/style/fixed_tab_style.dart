@@ -45,6 +45,8 @@ class FixedTabStyle extends InnerBuilder {
       return Semantics(
         label: item.semanticLabel,
         excludeSemantics: item.semanticLabel != '',
+        container: true,
+        button: true,
         child: Container(
           padding: EdgeInsets.only(bottom: 2),
           child: Column(
@@ -74,6 +76,8 @@ class FixedTabStyle extends InnerBuilder {
     return Semantics(
       label: item.semanticLabel,
       excludeSemantics: item.semanticLabel != '',
+      container: true,
+      button: true,
       child: Container(
         padding: EdgeInsets.only(bottom: 2),
         child: Column(

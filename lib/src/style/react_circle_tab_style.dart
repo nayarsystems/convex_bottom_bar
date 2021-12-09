@@ -52,6 +52,8 @@ class ReactCircleTabStyle extends InnerBuilder {
         child: Semantics(
           label: item.semanticLabel,
           excludeSemantics: item.semanticLabel != '',
+          container: true,
+          button: true,
           child: Container(
             // necessary otherwise the badge will not large enough
             width: style.layoutSize,
@@ -84,6 +86,8 @@ class ReactCircleTabStyle extends InnerBuilder {
     return Semantics(
       label: item.semanticLabel,
       excludeSemantics: item.semanticLabel != '',
+      container: true,
+      button: true,
       child: Container(
         padding: EdgeInsets.only(bottom: 2),
         child: Column(

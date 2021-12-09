@@ -43,6 +43,8 @@ class TextInTabStyle extends InnerBuilder {
       return Semantics(
         label: item.semanticLabel,
         excludeSemantics: item.semanticLabel != '',
+        container: true,
+        button: true,
         child: Container(
           padding: const EdgeInsets.only(bottom: 2),
           child: Column(
@@ -70,6 +72,8 @@ class TextInTabStyle extends InnerBuilder {
     return Semantics(
       label: item.semanticLabel,
       excludeSemantics: item.semanticLabel != '',
+      container: true,
+      button: true,
       child: Center(
         child: BlendImageIcon(item.icon,
             size: style.iconSize, color: item.blend ? color : null),
