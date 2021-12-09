@@ -14,8 +14,6 @@
  *  limitations under the License.
  */
 
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import '../item.dart';
@@ -44,18 +42,22 @@ class FixedTabStyle extends InnerBuilder {
 
     if (index == convexIndex) {
       var item = items[convexIndex];
-      return Container(
-        padding: EdgeInsets.only(bottom: 2),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            BlendImageIcon(
-              active ? item.activeIcon ?? item.icon : item.icon,
-              color: item.blend ? (c) : null,
-              size: style.activeIconSize,
-            ),
-            Text(item.title ?? '', style: textStyle)
-          ],
+      return Semantics(
+        label: item.semanticLabel,
+        excludeSemantics: item.semanticLabel != '',
+        child: Container(
+          padding: EdgeInsets.only(bottom: 2),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              BlendImageIcon(
+                active ? item.activeIcon ?? item.icon : item.icon,
+                color: item.blend ? (c) : null,
+                size: style.activeIconSize,
+              ),
+              Text(item.title ?? '', style: textStyle)
+            ],
+          ),
         ),
       );
     }
@@ -69,11 +71,15 @@ class FixedTabStyle extends InnerBuilder {
     var children = noLabel
         ? <Widget>[icon]
         : <Widget>[icon, Text(item.title ?? '', style: textStyle)];
-    return Container(
-      padding: EdgeInsets.only(bottom: 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: children,
+    return Semantics(
+      label: item.semanticLabel,
+      excludeSemantics: item.semanticLabel != '',
+      child: Container(
+        padding: EdgeInsets.only(bottom: 2),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: children,
+        ),
       ),
     );
   }

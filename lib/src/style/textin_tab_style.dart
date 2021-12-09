@@ -40,32 +40,40 @@ class TextInTabStyle extends InnerBuilder {
     var style = ofStyle(context);
     if (active) {
       var textStyle = style.textStyle(activeColor, item.fontFamily);
-      return Container(
-        padding: const EdgeInsets.only(bottom: 2),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TransitionContainer.scale(
-              data: index,
-              curve: curve,
-              child: BlendImageIcon(
-                item.activeIcon ?? item.icon,
-                color: item.blend ? activeColor : null,
-                size: style.activeIconSize,
+      return Semantics(
+        label: item.semanticLabel,
+        excludeSemantics: item.semanticLabel != '',
+        child: Container(
+          padding: const EdgeInsets.only(bottom: 2),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TransitionContainer.scale(
+                data: index,
+                curve: curve,
+                child: BlendImageIcon(
+                  item.activeIcon ?? item.icon,
+                  color: item.blend ? activeColor : null,
+                  size: style.activeIconSize,
+                ),
               ),
-            ),
-            TransitionContainer.slide(
-              curve: curve,
-              child: Text(item.title ?? '', style: textStyle),
-            ),
-          ],
+              TransitionContainer.slide(
+                curve: curve,
+                child: Text(item.title ?? '', style: textStyle),
+              ),
+            ],
+          ),
         ),
       );
     }
 
-    return Center(
-      child: BlendImageIcon(item.icon,
-          size: style.iconSize, color: item.blend ? color : null),
+    return Semantics(
+      label: item.semanticLabel,
+      excludeSemantics: item.semanticLabel != '',
+      child: Center(
+        child: BlendImageIcon(item.icon,
+            size: style.iconSize, color: item.blend ? color : null),
+      ),
     );
   }
 }

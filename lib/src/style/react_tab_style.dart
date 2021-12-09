@@ -15,6 +15,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import '../item.dart';
 import 'blend_image_icon.dart';
@@ -36,6 +37,7 @@ class ReactTabStyle extends InnerBuilder {
 
   @override
   Widget build(BuildContext context, int index, bool active) {
+    print(items[index].semanticLabel);
     var item = items[index];
     var style = ofStyle(context);
     var noLabel = style.hideEmptyLabel && hasNoText(item);
@@ -56,12 +58,16 @@ class ReactTabStyle extends InnerBuilder {
         children.add(Text(item.title ?? '',
             style: style.textStyle(activeColor, item.fontFamily)));
       }
-      return Container(
-        padding: const EdgeInsets.only(bottom: 2),
-        child: Column(
-          mainAxisAlignment:
-              noLabel ? MainAxisAlignment.center : MainAxisAlignment.end,
-          children: children,
+      return Semantics(
+        label: item.semanticLabel,
+        excludeSemantics: item.semanticLabel != '',
+        child: Container(
+          padding: const EdgeInsets.only(bottom: 2),
+          child: Column(
+            mainAxisAlignment:
+                noLabel ? MainAxisAlignment.center : MainAxisAlignment.end,
+            children: children,
+          ),
         ),
       );
     }
@@ -72,12 +78,16 @@ class ReactTabStyle extends InnerBuilder {
       children.add(Text(item.title ?? '',
           style: style.textStyle(color, item.fontFamily)));
     }
-    return Container(
-      padding: const EdgeInsets.only(bottom: 2),
-      child: Column(
-        mainAxisAlignment:
-            noLabel ? MainAxisAlignment.center : MainAxisAlignment.end,
-        children: children,
+    return Semantics(
+      label: item.semanticLabel,
+      excludeSemantics: item.semanticLabel != '',
+      child: Container(
+        padding: const EdgeInsets.only(bottom: 2),
+        child: Column(
+          mainAxisAlignment:
+              noLabel ? MainAxisAlignment.center : MainAxisAlignment.end,
+          children: children,
+        ),
       ),
     );
   }

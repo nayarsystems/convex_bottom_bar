@@ -14,7 +14,6 @@
  *  limitations under the License.
  */
 
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import '../item.dart';
@@ -48,19 +47,23 @@ class FixedCircleTabStyle extends InnerBuilder {
 
     if (index == convexIndex) {
       final item = items[index];
-      return Container(
-        // necessary otherwise the badge will not large enough
-        width: style.layoutSize,
-        height: style.layoutSize,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: c,
-        ),
-        margin: EdgeInsets.all(margin),
-        child: BlendImageIcon(
-          active ? item.activeIcon ?? item.icon : item.icon,
-          size: style.activeIconSize,
-          color: item.blend ? backgroundColor : null,
+      return Semantics(
+        label: item.semanticLabel,
+        excludeSemantics: item.semanticLabel != '',
+        child: Container(
+          // necessary otherwise the badge will not large enough
+          width: style.layoutSize,
+          height: style.layoutSize,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: c,
+          ),
+          margin: EdgeInsets.all(margin),
+          child: BlendImageIcon(
+            active ? item.activeIcon ?? item.icon : item.icon,
+            size: style.activeIconSize,
+            color: item.blend ? backgroundColor : null,
+          ),
         ),
       );
     }
@@ -74,11 +77,15 @@ class FixedCircleTabStyle extends InnerBuilder {
     var children = noLabel
         ? <Widget>[icon]
         : <Widget>[icon, Text(item.title ?? '', style: textStyle)];
-    return Container(
-      padding: EdgeInsets.only(bottom: 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: children,
+    return Semantics(
+      label: item.semanticLabel,
+      excludeSemantics: item.semanticLabel != '',
+      child: Container(
+        padding: EdgeInsets.only(bottom: 2),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: children,
+        ),
       ),
     );
   }

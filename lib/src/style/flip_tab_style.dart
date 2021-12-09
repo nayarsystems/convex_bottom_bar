@@ -56,11 +56,15 @@ class FlipTabStyle extends InnerBuilder {
         data: index,
         duration: Duration(milliseconds: 500),
         height: style.activeIconMargin + style.activeIconSize,
-        bottomChild: Container(
-          padding: EdgeInsets.only(bottom: 2),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: children,
+        bottomChild: Semantics(
+          label: item.semanticLabel,
+          excludeSemantics: item.semanticLabel != '',
+          child: Container(
+            padding: EdgeInsets.only(bottom: 2),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: children,
+            ),
           ),
         ),
         topChild: Container(
@@ -75,11 +79,15 @@ class FlipTabStyle extends InnerBuilder {
         curve: curve,
       );
     }
-    return Center(
-      child: BlendImageIcon(
-        item.icon,
-        color: item.blend ? color : null,
-        size: style.iconSize,
+    return Semantics(
+      label: item.semanticLabel,
+      excludeSemantics: item.semanticLabel != '',
+      child: Center(
+        child: BlendImageIcon(
+          item.icon,
+          color: item.blend ? color : null,
+          size: style.iconSize,
+        ),
       ),
     );
   }

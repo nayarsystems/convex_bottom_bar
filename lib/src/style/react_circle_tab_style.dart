@@ -49,19 +49,23 @@ class ReactCircleTabStyle extends InnerBuilder {
       return TransitionContainer.scale(
         data: index,
         curve: curve,
-        child: Container(
-          // necessary otherwise the badge will not large enough
-          width: style.layoutSize,
-          height: style.layoutSize,
-          margin: EdgeInsets.all(margin),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: active ? activeColor : color,
-          ),
-          child: BlendImageIcon(
-            active ? item.activeIcon ?? item.icon : item.icon,
-            size: style.activeIconSize,
-            color: item.blend ? backgroundColor : null,
+        child: Semantics(
+          label: item.semanticLabel,
+          excludeSemantics: item.semanticLabel != '',
+          child: Container(
+            // necessary otherwise the badge will not large enough
+            width: style.layoutSize,
+            height: style.layoutSize,
+            margin: EdgeInsets.all(margin),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: active ? activeColor : color,
+            ),
+            child: BlendImageIcon(
+              active ? item.activeIcon ?? item.icon : item.icon,
+              size: style.activeIconSize,
+              color: item.blend ? backgroundColor : null,
+            ),
           ),
         ),
       );
@@ -77,11 +81,15 @@ class ReactCircleTabStyle extends InnerBuilder {
     if (!noLabel) {
       children.add(Text(item.title ?? '', style: textStyle));
     }
-    return Container(
-      padding: EdgeInsets.only(bottom: 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: children,
+    return Semantics(
+      label: item.semanticLabel,
+      excludeSemantics: item.semanticLabel != '',
+      child: Container(
+        padding: EdgeInsets.only(bottom: 2),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: children,
+        ),
       ),
     );
   }

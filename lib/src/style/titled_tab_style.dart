@@ -56,16 +56,21 @@ class TitledTabStyle extends InnerBuilder {
         data: index,
         duration: Duration(milliseconds: 200),
         curve: curve,
-        child: Container(
-          // necessary otherwise the badge will not large enough
-          width: style.layoutSize,
-          height: style.layoutSize,
-          margin: EdgeInsets.all(margin),
-          decoration: BoxDecoration(shape: BoxShape.circle, color: activeColor),
-          child: BlendImageIcon(
-            item.activeIcon ?? item.icon,
-            size: style.activeIconSize,
-            color: item.blend ? backgroundColor : null,
+        child: Semantics(
+          label: item.semanticLabel,
+          excludeSemantics: item.semanticLabel != '',
+          child: Container(
+            // necessary otherwise the badge will not large enough
+            width: style.layoutSize,
+            height: style.layoutSize,
+            margin: EdgeInsets.all(margin),
+            decoration:
+                BoxDecoration(shape: BoxShape.circle, color: activeColor),
+            child: BlendImageIcon(
+              item.activeIcon ?? item.icon,
+              size: style.activeIconSize,
+              color: item.blend ? backgroundColor : null,
+            ),
           ),
         ),
       );
@@ -73,30 +78,37 @@ class TitledTabStyle extends InnerBuilder {
 
     var textStyle = style.textStyle(activeColor, item.fontFamily);
     if (pre == index) {
-      return Stack(
-        clipBehavior: Clip.hardEdge,
-        alignment: Alignment.center,
-        children: <Widget>[
-          Text(item.title ?? '', style: textStyle),
-          TransitionContainer.slide(
-            reverse: true,
-            curve: curve,
-            child: Container(
-              margin: EdgeInsets.all(margin),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: activeColor,
+      return Semantics(
+        label: item.semanticLabel,
+        excludeSemantics: item.semanticLabel != '',
+        child: Stack(
+          clipBehavior: Clip.hardEdge,
+          alignment: Alignment.center,
+          children: <Widget>[
+            Text(item.title ?? '', style: textStyle),
+            TransitionContainer.slide(
+              reverse: true,
+              curve: curve,
+              child: Container(
+                margin: EdgeInsets.all(margin),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: activeColor,
+                ),
+                child: BlendImageIcon(
+                  item.activeIcon ?? item.icon,
+                  size: style.activeIconSize,
+                  color: item.blend ? backgroundColor : null,
+                ),
               ),
-              child: BlendImageIcon(
-                item.activeIcon ?? item.icon,
-                size: style.activeIconSize,
-                color: item.blend ? backgroundColor : null,
-              ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       );
     }
-    return Center(child: Text(item.title ?? '', style: textStyle));
+    return Semantics(
+        label: item.semanticLabel,
+        excludeSemantics: item.semanticLabel != '',
+        child: Center(child: Text(item.title ?? '', style: textStyle)));
   }
 }

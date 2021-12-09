@@ -36,12 +36,16 @@ class TabItem<T> {
   /// If [icon] is instance of [IconData] then blend is default to true, otherwise false
   final bool blend;
 
+  // Optional voice assistant will read this label when there is no title or instead of the title.
+  final String? semanticLabel;
+
   /// Create item
   const TabItem({
     this.fontFamily,
     this.title = '',
     required this.icon,
     this.activeIcon,
+    this.semanticLabel = '',
     bool? isIconBlend,
   })  : assert(icon is IconData || icon is Widget,
             'TabItem only support IconData and Widget'),
