@@ -15,7 +15,6 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import '../item.dart';
 import 'blend_image_icon.dart';
@@ -37,7 +36,6 @@ class ReactTabStyle extends InnerBuilder {
 
   @override
   Widget build(BuildContext context, int index, bool active) {
-    print(items[index].semanticLabel);
     var item = items[index];
     var style = ofStyle(context);
     var noLabel = style.hideEmptyLabel && hasNoText(item);
